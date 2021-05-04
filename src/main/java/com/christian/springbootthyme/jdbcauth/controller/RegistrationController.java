@@ -1,5 +1,7 @@
 package com.christian.springbootthyme.jdbcauth.controller;
 
+import com.christian.springbootthyme.jdbcauth.entity.Employee;
+import com.christian.springbootthyme.jdbcauth.service.EmployeeService;
 import com.christian.springbootthyme.jdbcauth.user.CrmUser;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class RegistrationController {
     @Autowired
     private UserDetailsManager userDetailsManager;
 
+    //load employee data
+    private EmployeeService employeeService;
+
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private Logger logger = Logger.getLogger(getClass().getName());
@@ -39,6 +44,10 @@ public class RegistrationController {
     private Map<String, String> roles;
     List<String> roleNames= new ArrayList<>();
 
+    @Autowired
+    public RegistrationController(EmployeeService theEmployeeService){
+        employeeService=theEmployeeService;
+    }
 
 
     @InitBinder
@@ -68,9 +77,8 @@ public class RegistrationController {
 
     }
 
-
     @GetMapping("/showRegisterForm")
-    public String showRegisterForm(Model theModel){
+    public String showRegisterForm(Model theModel, Model empModel){
         //Create crm user dao, and entity
         // create roles and prepopulate
 
@@ -84,6 +92,8 @@ public class RegistrationController {
 
         theModel.addAttribute("roles", roleNames);
 
+        empModel.addAttribute("employee",new Employee());
+
         return "registration-form";
 
     }
@@ -92,7 +102,10 @@ public class RegistrationController {
     public String processRegistrationForm(
             @Valid @ModelAttribute("crmUser") CrmUser theCrmUser,
             BindingResult theBindingResult,
-            Model theModel) {
+            @Valid @ModelAttribute("employee") Employee theEmployee,
+            BindingResult empBindingResult,
+            Model theModel,
+            Model empModel) {
 
         String userName = theCrmUser.getUserName();
 
@@ -100,9 +113,11 @@ public class RegistrationController {
         if (theBindingResult.hasErrors()) {
 
             theModel.addAttribute("crmUser", new CrmUser());
+            empModel.addAttribute("employee",new Employee());
 
             // add roles to the model for form display
             theModel.addAttribute("roles", roleNames);
+
 
             theModel.addAttribute("registrationError", "User name/password can not be empty.");
 
@@ -111,12 +126,28 @@ public class RegistrationController {
             return "registration-form";
         }
 
+        if (empBindingResult.hasErrors()) {
+
+            theModel.addAttribute("crmUser", new CrmUser());
+            empModel.addAttribute("employee",new Employee());
+
+            // add roles to the model for form display
+            theModel.addAttribute("roles", roleNames);
+
+
+            theModel.addAttribute("registrationError", "First Name/Last Name can not be empty.");
+
+            logger.warning("First Name/Last Name can not be empty.");
+
+            return "registration-form";
+        }
 
         // check the database if user already exists
         boolean userExists = doesUserExist(userName);
 
         if (userExists) {
             theModel.addAttribute("crmUser", new CrmUser());
+            empModel.addAttribute("employee",new Employee());
 
             // add roles to the model for form display
             theModel.addAttribute("roles", roleNames);
@@ -127,6 +158,8 @@ public class RegistrationController {
 
             return "registration-form";
         }
+
+
 
 
         String encodedPassword = passwordEncoder.encode(theCrmUser.getPassword());
@@ -150,7 +183,6 @@ public class RegistrationController {
             }
         }
 
-
         if (!formRole.equals("ROLE_EMPLOYEE")) {
             authorities.add(new SimpleGrantedAuthority(formRole));
         }
@@ -160,13 +192,17 @@ public class RegistrationController {
 
         // save user in the database
         userDetailsManager.createUser(tempUser);
-
         logger.info("Successfully created user: " + userName);
 
+
+        // add user to employee table
+
+        theEmployee.setEmail(theEmployee.getFirstName()+"@"+theEmployee.getLastName() +".com");
+        employeeService.saveEmployee(theEmployee);
+        
         return "registration-complete";
 
     }
-
 
     private boolean doesUserExist(String userName) {
 
