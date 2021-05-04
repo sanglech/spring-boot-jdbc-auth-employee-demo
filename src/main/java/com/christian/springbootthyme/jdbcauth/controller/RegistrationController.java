@@ -142,6 +142,15 @@ public class RegistrationController {
         // then add that one too (multiple roles)
         String formRole = theCrmUser.getFormRole();
 
+        for(Map.Entry<String, String> entry: roles.entrySet()) {
+            if(entry.getValue().equals(formRole)) {
+                System.out.println("The key for value " + formRole + " is " + entry.getKey());
+                formRole=entry.getKey();
+                break;
+            }
+        }
+
+
         if (!formRole.equals("ROLE_EMPLOYEE")) {
             authorities.add(new SimpleGrantedAuthority(formRole));
         }
@@ -154,7 +163,7 @@ public class RegistrationController {
 
         logger.info("Successfully created user: " + userName);
 
-        return "helloworld";
+        return "registration-complete";
 
     }
 
