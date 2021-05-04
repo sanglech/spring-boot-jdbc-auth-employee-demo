@@ -1,4 +1,4 @@
-package com.christian.springbootthymeleafdemo.entity;
+package com.christian.springbootthyme.jdbcauth.entity;
 
 import javax.persistence.*;
 

@@ -1,4 +1,4 @@
-package com.christian.springbootthymeleafdemo.controller;
+package com.christian.springbootthyme.jdbcauth.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

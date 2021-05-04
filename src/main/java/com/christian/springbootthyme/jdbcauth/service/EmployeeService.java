@@ -1,6 +1,6 @@
-package com.christian.springbootthymeleafdemo.service;
+package com.christian.springbootthyme.jdbcauth.service;
 
-import com.christian.springbootthymeleafdemo.entity.Employee;
+import com.christian.springbootthyme.jdbcauth.entity.Employee;
 
 import java.util.List;
 

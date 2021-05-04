@@ -1,6 +1,6 @@
-package com.christian.springbootthymeleafdemo.dao;
+package com.christian.springbootthyme.jdbcauth.dao;
 
-import com.christian.springbootthymeleafdemo.entity.Employee;
+import com.christian.springbootthyme.jdbcauth.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

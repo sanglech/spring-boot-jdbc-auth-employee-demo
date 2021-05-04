@@ -1,7 +1,7 @@
-package com.christian.springbootthymeleafdemo.controller;
+package com.christian.springbootthyme.jdbcauth.controller;
 
-import com.christian.springbootthymeleafdemo.entity.Employee;
-import com.christian.springbootthymeleafdemo.service.EmployeeService;
+import com.christian.springbootthyme.jdbcauth.entity.Employee;
+import com.christian.springbootthyme.jdbcauth.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

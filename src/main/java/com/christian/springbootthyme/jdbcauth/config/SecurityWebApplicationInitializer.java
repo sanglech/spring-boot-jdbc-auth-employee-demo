@@ -1,4 +1,4 @@
-package com.christian.springbootthymeleafdemo.config;
+package com.christian.springbootthyme.jdbcauth.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

@@ -1,4 +1,4 @@
-package com.christian.springbootthymeleafdemo.config;
+package com.christian.springbootthyme.jdbcauth.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
