@@ -31,7 +31,12 @@
            <button type="submit" class="btn btn-info col-2">Save</button>
         </form>
         <hr>
-        <a th:href="@{/employees/list}"> Back to Employees</a>
+
+        <!-- Go back to employee list -->
+        <form action="#" th:action="@{/employees/list}"
+              method="GET">
+            <input type="submit" value="Back to Employees" class="btn btn-outline-primary mt-2" />
+        </form>
     </div>
 </body>
 </html>

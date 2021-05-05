@@ -101,8 +101,12 @@
                             </div>
                             </form>
                         </form>
-                        <a th:href="@{/showMyLoginPage}"
-                           class="btn btn-secondary btn-sm mb-3">Back to Login</a>
+
+                        <!-- Go back button -->
+                        <form action="#" th:action="@{/showMyLoginPage}"
+                              method="GET">
+                            <input type="submit" value="Back to Login" class="btn btn-outline-secondary mt-2" />
+                        </form>
                     </div>
 
                 </div>

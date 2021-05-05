@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.christian</groupId>
-	<artifactId>spring-boot-thymeleaf-demo</artifactId>
+	<artifactId>spring-boot-jdbc-auth-employee-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-thymeleaf-demo</name>
-	<description>Demo project for Spring Boot with Thymeleaf</description>
+	<name>spring-boot-jdbc-auth-employee-demo</name>
+	<description>Demo project for Spring Boot with Thymeleaf with JDBC auth</description>
 	<packaging>jar</packaging>
 	<properties>
 		<java.version>11</java.version>
